@@ -1,7 +1,7 @@
 import { Hero } from './hero'
 import Image from 'next/image'
 
-import previewImage from '@/assets/app-preview.png'
+import previewImage from '@/assets/app-preview.svg'
 
 export default function Home() {
   return (

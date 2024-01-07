@@ -1,3 +1,5 @@
+import { ClaimUsernameForm } from './components/claim-username-form'
+
 export function Hero() {
   return (
     <div className="max-w-[480px] px-2">
@@ -8,6 +10,8 @@ export function Hero() {
         Conecte o seu calendário e permita que as pessoas marquem agendamentos
         no seu tempo livre.
       </p>
+
+      <ClaimUsernameForm />
     </div>
   )
 }
