@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/router'
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -22,13 +23,16 @@ export function ClaimUsernameForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ClaimUsernameFormData>({
     resolver: zodResolver(claimUsernameFormSchema),
   })
 
+  const router = useRouter()
+
   async function handlePreRegister(data: ClaimUsernameFormData) {
-    console.log(data)
+    const { username } = data
+    await router.push(`/register?username=${username}`)
   }
 
   return (
@@ -41,6 +45,7 @@ export function ClaimUsernameForm() {
         <Button
           type="submit"
           className="col-auto bg-emerald-600 hover:bg-emerald-800"
+          disabled={isSubmitting}
         >
           Reservar <ArrowRight className="ml-2 h-4 w-4 " />
         </Button>
