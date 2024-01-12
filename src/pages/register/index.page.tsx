@@ -1,3 +1,4 @@
+import { MultiStep } from '@/components/multistep'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ArrowRight } from 'lucide-react'
@@ -12,6 +13,8 @@ export default function Register() {
           pode editar essas informações depois.
         </p>
       </div>
+
+      <MultiStep currentStep={1} steps={4} />
 
       <form className="mt-6 flex flex-col gap-4 rounded bg-zinc-200 p-6">
         <label className="flex flex-col gap-2">
