@@ -2,6 +2,7 @@ import { FormError } from '@/components/form-error'
 import { MultiStep } from '@/components/multistep'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { api } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/router'
@@ -41,7 +42,14 @@ export default function Register() {
   }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
