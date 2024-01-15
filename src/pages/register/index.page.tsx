@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { api } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { AxiosError } from 'axios'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const registerFormSchema = z.object({
@@ -48,7 +50,11 @@ export default function Register() {
         username: data.username,
       })
     } catch (error) {
-      console.log(error)
+      if (error instanceof AxiosError && error?.response?.data?.message) {
+        return toast.error(error.response.data.message)
+      }
+
+      toast.error('Erro interno! Tente novamente mais tarde')
     }
   }
 
