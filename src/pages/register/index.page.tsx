@@ -49,6 +49,7 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
+      toast.success('Usuário criado')
     } catch (error) {
       if (error instanceof AxiosError && error?.response?.data?.message) {
         return toast.error(error.response.data.message)
