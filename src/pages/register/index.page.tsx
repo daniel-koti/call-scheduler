@@ -50,6 +50,8 @@ export default function Register() {
         username: data.username,
       })
       toast.success('Usuário criado')
+
+      await router.push('/register/connect-calendar')
     } catch (error) {
       if (error instanceof AxiosError && error?.response?.data?.message) {
         return toast.error(error.response.data.message)
@@ -73,7 +75,7 @@ export default function Register() {
 
       <form
         onSubmit={handleSubmit(handleRegister)}
-        className="mt-6 flex flex-col gap-4 rounded bg-zinc-200 p-6"
+        className="mt-6 flex flex-col gap-4 rounded bg-zinc-100 p-6"
       >
         <label className="flex flex-col gap-2">
           <span className="text-sm text-zinc-900">Nome de usuário</span>
@@ -97,8 +99,9 @@ export default function Register() {
           )}
         </label>
 
-        <Button disabled={isSubmitting}>
-          Próximo passo <ArrowRight className="ml-1 h-4 w-4" />
+        <Button isLoading={isSubmitting} disabled={isSubmitting}>
+          Próximo passo{' '}
+          {!isSubmitting && <ArrowRight className="ml-1 h-4 w-4" />}
         </Button>
       </form>
     </main>
