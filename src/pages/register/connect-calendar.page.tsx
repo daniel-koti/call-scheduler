@@ -2,8 +2,11 @@ import { MultiStep } from '@/components/multistep'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ArrowRight, Globe2 } from 'lucide-react'
+import { signIn, useSession } from 'next-auth/react'
 
 export default function ConnectCalendar() {
+  const session = useSession()
+
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
       <div className="py-0">
@@ -21,15 +24,17 @@ export default function ConnectCalendar() {
           <span className="text-sm font-medium text-zinc-900">
             Google Calendar
           </span>
-          <Button variant="destructive">
+          <Button variant="destructive" onClick={() => signIn('google')}>
             Conectar
             <Globe2 className="ml-2 h-4 w-4" />
           </Button>
         </Card>
-        <Button>
+        <Button disabled>
           Próximo passo <ArrowRight className="ml-1 h-4 w-4" />
         </Button>
       </Card>
+
+      <pre>{JSON.stringify(session.data)}</pre>
     </main>
   )
 }
