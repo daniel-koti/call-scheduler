@@ -1,11 +1,23 @@
+import { FormError } from '@/components/form-error'
 import { MultiStep } from '@/components/multistep'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ArrowRight, Globe2 } from 'lucide-react'
+import { ArrowRight, Check, Globe2 } from 'lucide-react'
 import { signIn, useSession } from 'next-auth/react'
+
+import { useRouter } from 'next/router'
 
 export default function ConnectCalendar() {
   const session = useSession()
+  const router = useRouter()
+
+  const hasAuthError = !!router.query.error
+
+  const isSignedIn = session.status === 'authenticated'
+
+  async function handleConnectCalendar() {
+    await signIn('google')
+  }
 
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
@@ -24,12 +36,23 @@ export default function ConnectCalendar() {
           <span className="text-sm font-medium text-zinc-900">
             Google Calendar
           </span>
-          <Button onClick={() => signIn('google')}>
-            Conectar
-            <Globe2 className="ml-2 h-4 w-4" />
-          </Button>
+          {isSignedIn ? (
+            <Button disabled>
+              Conectado <Check className="ml-2 h-4 w-4" />
+            </Button>
+          ) : (
+            <Button onClick={handleConnectCalendar}>
+              Conectar
+              <Globe2 className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </Card>
-        <Button disabled>
+
+        {hasAuthError && (
+          <FormError description="Falha ao se comunicar com o Google, verifique se você habilitou as permissões de acesso" />
+        )}
+
+        <Button disabled={!isSignedIn} className="mt-2">
           Próximo passo <ArrowRight className="ml-1 h-4 w-4" />
         </Button>
       </Card>
