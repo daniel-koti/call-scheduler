@@ -24,7 +24,7 @@ export default function ConnectCalendar() {
           <span className="text-sm font-medium text-zinc-900">
             Google Calendar
           </span>
-          <Button variant="destructive" onClick={() => signIn('google')}>
+          <Button onClick={() => signIn('google')}>
             Conectar
             <Globe2 className="ml-2 h-4 w-4" />
           </Button>
@@ -33,8 +33,6 @@ export default function ConnectCalendar() {
           Próximo passo <ArrowRight className="ml-1 h-4 w-4" />
         </Button>
       </Card>
-
-      <pre>{JSON.stringify(session.data)}</pre>
     </main>
   )
 }
