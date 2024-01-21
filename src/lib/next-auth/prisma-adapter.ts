@@ -41,11 +41,15 @@ export function PrismaAdapter(
     },
 
     async getUser(id) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
       })
+
+      if (!user) {
+        return null
+      }
 
       return {
         id: user.id,
@@ -160,7 +164,7 @@ export function PrismaAdapter(
     },
 
     async getSessionAndUser(sessionToken) {
-      const { user, ...session } = await prisma.session.findUniqueOrThrow({
+      const prismaSession = await prisma.session.findUnique({
         where: {
           session_token: sessionToken,
         },
@@ -168,6 +172,12 @@ export function PrismaAdapter(
           user: true,
         },
       })
+
+      if (!prismaSession) {
+        return null
+      }
+
+      const { user, ...session } = prismaSession
 
       return {
         session: {
