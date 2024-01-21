@@ -62,11 +62,15 @@ export function PrismaAdapter(
     },
 
     async getUserByEmail(email) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           email,
         },
       })
+
+      if (!user) {
+        return null
+      }
 
       return {
         id: user.id,
