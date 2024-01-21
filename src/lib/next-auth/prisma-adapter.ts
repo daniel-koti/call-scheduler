@@ -75,7 +75,7 @@ export function PrismaAdapter(
     },
 
     async getUserByAccount({ providerAccountId, provider }) {
-      const { user } = await prisma.account.findUniqueOrThrow({
+      const account = await prisma.account.findUnique({
         where: {
           provider_provider_account_id: {
             provider,
@@ -86,6 +86,12 @@ export function PrismaAdapter(
           user: true,
         },
       })
+
+      if (!account) {
+        return null
+      }
+
+      const { user } = account
 
       return {
         id: user.id,
