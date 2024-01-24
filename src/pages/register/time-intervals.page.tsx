@@ -4,7 +4,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { getWeekDays } from '@/utils/get-week-days'
 import { ArrowRight } from 'lucide-react'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
 const timeIntervalsFormSchema = z.object({})
@@ -14,6 +14,7 @@ export default function TimeIntervals() {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm({
     defaultValues: {
@@ -28,6 +29,8 @@ export default function TimeIntervals() {
       ],
     },
   })
+
+  const intervals = watch('intervals')
 
   const { fields } = useFieldArray({
     control,
@@ -52,29 +55,47 @@ export default function TimeIntervals() {
 
       <form className="mt-6 flex flex-col rounded-[6px] border border-zinc-200 bg-zinc-100 p-4">
         <div className="mb-4 rounded-[6px] border  border-zinc-200">
-          {fields.map((field, index) => (
-            <div
-              key={field.id}
-              className="flex items-center justify-between border-b border-zinc-200 p-4"
-            >
-              <div className="flex items-center gap-3">
-                <Checkbox />
-                <span>{weekDays[field.weekDay]}</span>
+          {fields.map((field, index) => {
+            const isIntervalDisabled = intervals[index].enabled === false
+
+            return (
+              <div
+                key={field.id}
+                className="flex items-center justify-between border-b border-zinc-200 p-4"
+              >
+                <div className="flex items-center gap-3">
+                  <Controller
+                    name={`intervals.${index}.enabled`}
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        onCheckedChange={(checked) =>
+                          field.onChange(checked === true)
+                        }
+                        checked={field.value}
+                      />
+                    )}
+                  />
+
+                  <span>{weekDays[field.weekDay]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="time"
+                    step={60}
+                    {...register(`intervals.${index}.startTime`)}
+                    disabled={isIntervalDisabled}
+                  />
+                  <Input
+                    type="time"
+                    step={60}
+                    {...register(`intervals.${index}.endTime`)}
+                    disabled={isIntervalDisabled}
+                  />
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Input
-                  type="time"
-                  step={60}
-                  {...register(`intervals.${index}.startTime`)}
-                />
-                <Input
-                  type="time"
-                  step={60}
-                  {...register(`intervals.${index}.endTime`)}
-                />
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <Button>
