@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { api } from '@/lib/axios'
 import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
+import { Fragment } from 'react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -85,8 +87,11 @@ export default function TimeIntervals() {
   const weekDays = getWeekDays()
 
   async function handleSetTimeIntervals(data: any) {
-    const formData = data as TimeIntervalsFormOutput
-    console.log(formData)
+    const { intervals } = data as TimeIntervalsFormOutput
+
+    await api.post('/users/time-intervals', {
+      intervals,
+    })
   }
 
   return (
@@ -110,12 +115,9 @@ export default function TimeIntervals() {
             const isIntervalDisabled = intervals[index].enabled === false
 
             return (
-              <>
+              <Fragment key={field.id}>
                 {index > 0 && <Separator />}
-                <div
-                  key={field.id}
-                  className="flex items-center justify-between p-4"
-                >
+                <div className="flex items-center justify-between p-4">
                   <div className="flex items-center gap-3">
                     <Controller
                       name={`intervals.${index}.enabled`}
@@ -147,7 +149,7 @@ export default function TimeIntervals() {
                     />
                   </div>
                 </div>
-              </>
+              </Fragment>
             )
           })}
         </div>
