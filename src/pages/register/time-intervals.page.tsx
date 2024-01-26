@@ -9,6 +9,7 @@ import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minut
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Fragment } from 'react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
@@ -79,6 +80,8 @@ export default function TimeIntervals() {
 
   const intervals = watch('intervals')
 
+  const router = useRouter()
+
   const { fields } = useFieldArray({
     control,
     name: 'intervals',
@@ -92,6 +95,8 @@ export default function TimeIntervals() {
     await api.post('/users/time-intervals', {
       intervals,
     })
+
+    await router.push('/register/update-profile')
   }
 
   return (

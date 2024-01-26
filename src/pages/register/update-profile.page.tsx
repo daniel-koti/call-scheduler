@@ -8,6 +8,11 @@ import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { buildNextAuthOptions } from '../api/auth/[...nextauth].api'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { AvatarFallback } from '@radix-ui/react-avatar'
+import { getFirstAndLastLetterName } from '@/utils/get-first-and-last-letter-name'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const updateProfileSchema = z.object({
   bio: z.string(),
@@ -25,11 +30,14 @@ export default function UpdateProfile() {
   })
 
   const session = useSession()
-
-  console.log(session)
+  const router = useRouter()
 
   async function handleUpdateProfile(data: UpdateProfileData) {
-    console.log(data)
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
   }
 
   return (
@@ -49,6 +57,12 @@ export default function UpdateProfile() {
       >
         <label className="flex flex-col gap-2">
           <span>Foto de perfil</span>
+          <Avatar>
+            <AvatarImage src={session.data?.user.avatar_url} />
+            <AvatarFallback className="flex w-32 items-center justify-center bg-zinc-400">
+              {getFirstAndLastLetterName(session.data?.user?.name)}
+            </AvatarFallback>
+          </Avatar>
         </label>
 
         <label className="flex flex-col gap-2">

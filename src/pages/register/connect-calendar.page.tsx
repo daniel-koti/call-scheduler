@@ -19,6 +19,10 @@ export default function ConnectCalendar() {
     await signIn('google')
   }
 
+  async function handleNavigateToNextStep() {
+    await router.push('/register/time-intervals')
+  }
+
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
       <div className="py-0">
@@ -52,7 +56,11 @@ export default function ConnectCalendar() {
           <FormError description="Falha ao se comunicar com o Google, verifique se você habilitou as permissões de acesso" />
         )}
 
-        <Button disabled={!isSignedIn} className="mt-2">
+        <Button
+          onClick={handleNavigateToNextStep}
+          disabled={!isSignedIn}
+          className="mt-2"
+        >
           Próximo passo <ArrowRight className="ml-1 h-4 w-4" />
         </Button>
       </Card>
