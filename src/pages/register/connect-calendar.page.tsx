@@ -26,7 +26,9 @@ export default function ConnectCalendar() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
       <div className="py-0">
-        <strong className="text-base">Conecte a sua agenda!</strong>
+        <strong className="text-2xl font-semibold">
+          Conecte a sua agenda!
+        </strong>
         <p className="mb-6 text-zinc-800">
           Conecte o seu calendário para verificar automaticamente as horas
           ocupadas e os novos eventos à medida em que são agendados.

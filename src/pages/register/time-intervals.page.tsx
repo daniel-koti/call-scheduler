@@ -102,7 +102,7 @@ export default function TimeIntervals() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
       <div className="py-0">
-        <strong className="text-base">Quase lá!</strong>
+        <strong className="text-2xl font-semibold">Quase lá!</strong>
         <p className="mb-6 text-zinc-800">
           Defina o intervalo de horário que você está disponível em cada dia da
           semana.

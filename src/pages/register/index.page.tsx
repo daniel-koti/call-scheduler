@@ -64,7 +64,9 @@ export default function Register() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
       <div className="py-0">
-        <strong className="text-base">Bem-vindo ao Call Scheduler</strong>
+        <strong className="text-2xl font-semibold">
+          Bem-vindo ao Call Scheduler
+        </strong>
         <p className="mb-6 text-zinc-800">
           Precisamos de algumas informações para criar o seu perfil! Ah, você
           pode editar essas informações depois.

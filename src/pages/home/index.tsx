@@ -5,10 +5,10 @@ import previewImage from '@/assets/app-preview.svg'
 
 export default function Home() {
   return (
-    <section className="h-screen flex flex-col md:flex-row items-center justify-center gap-5 ml-auto max-w-[calc(100vw-(100vw-1160px)/2)]">
+    <section className="ml-auto flex h-screen max-w-[calc(100vw-(100vw-1160px)/2)] flex-col items-center justify-center gap-5 md:flex-row">
       <Hero />
 
-      <div className="pr-8 overflow-hidden hidden md:block">
+      <div className="hidden overflow-hidden pr-8 md:block">
         <Image
           src={previewImage}
           height={800}
