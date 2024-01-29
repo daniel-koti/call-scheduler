@@ -1,5 +1,6 @@
-import { CalendarStep } from './calendar-step'
+// import { CalendarStep } from './calendar-step'
+import { ConfirmStep } from './confirm-step'
 
 export function ScheduleForm() {
-  return <CalendarStep />
+  return <ConfirmStep />
 }
