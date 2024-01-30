@@ -3,12 +3,12 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 export function CalendarStep() {
-  const isDateSelected = true
+  const isDateSelected = false
 
   return (
     <Card
-      data-isTimePickerOpen={isDateSelected}
-      className="data-[isTimePickerOpen=false]:grid-cols-1fr relative mx-auto mb-0 mt-6 grid max-w-full grid-cols-1 p-0 data-[isTimePickerOpen=false]:w-[540px] data-[isTimePickerOpen=true]:grid-cols-[1fr_280px]"
+      data-istimepickeropen={isDateSelected}
+      className="data-[istimepickeropen=false]:grid-cols-1fr relative mx-auto mb-0 mt-6 grid max-w-full grid-cols-1 p-0 data-[istimepickeropen=false]:w-[540px] data-[istimepickeropen=true]:grid-cols-[1fr_280px]"
     >
       <Calendar />
 

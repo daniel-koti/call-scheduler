@@ -1,8 +1,9 @@
+import '@/lib/dayjs'
 import '@/styles/globals.css'
 
-import { Toaster } from '@/components/ui/sonner'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import { Toaster } from '@/components/ui/sonner'
 
 export default function App({
   Component,
