@@ -1,16 +1,18 @@
 import { Calendar } from '@/components/calendar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useState } from 'react'
 
 export function CalendarStep() {
-  const isDateSelected = false
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const isDateSelected = !!selectedDate
 
   return (
     <Card
       data-istimepickeropen={isDateSelected}
       className="data-[istimepickeropen=false]:grid-cols-1fr relative mx-auto mb-0 mt-6 grid max-w-full grid-cols-1 p-0 data-[istimepickeropen=false]:w-[540px] data-[istimepickeropen=true]:grid-cols-[1fr_280px]"
     >
-      <Calendar />
+      <Calendar selectedDate={selectedDate} onDateSelected={setSelectedDate} />
 
       {isDateSelected && (
         <div className="absolute bottom-0 right-0 top-0 w-[280px] overflow-y-scroll border-l border-zinc-200 px-6 pb-0 pt-6">
