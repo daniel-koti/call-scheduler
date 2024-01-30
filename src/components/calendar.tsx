@@ -1,8 +1,18 @@
 import dayjs from 'dayjs'
+import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from './ui/button'
 import { getWeekDays } from '@/utils/get-week-days'
-import { useMemo, useState } from 'react'
+
+interface CalendarWeek {
+  week: number
+  days: Array<{
+    date: dayjs.Dayjs
+    disabled: boolean
+  }>
+}
+
+type CalendarWeeks = CalendarWeek[]
 
 export function Calendar() {
   const [currentDate, setCurrentDate] = useState(() => {
@@ -31,10 +41,57 @@ export function Calendar() {
       })
       .reverse()
 
-    return [...previousMonthFillArray, ...daysInMonthArray]
-  }, [currentDate])
+    const lastDayInCurrentMonth = currentDate.set(
+      'date',
+      currentDate.daysInMonth(),
+    )
+    const lastWeekDay = lastDayInCurrentMonth.get('day')
 
-  console.log(calendarWeeks)
+    const nextMonthFillArray = Array.from({
+      length: 7 - (lastWeekDay + 1),
+    }).map((_, i) => {
+      return lastDayInCurrentMonth.add(i + 1, 'day')
+    })
+
+    const calendarDays = [
+      ...previousMonthFillArray.map((date) => {
+        return {
+          date,
+          disabled: true,
+        }
+      }),
+      ...daysInMonthArray.map((date) => {
+        return {
+          date,
+          disabled: false,
+        }
+      }),
+      ...nextMonthFillArray.map((date) => {
+        return {
+          date,
+          disabled: true,
+        }
+      }),
+    ]
+
+    const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
+      (weeks, _, i, original) => {
+        const isNewWeek = i % 7 === 0
+
+        if (isNewWeek) {
+          weeks.push({
+            week: i / 7 + 1,
+            days: original.slice(i, i + 7),
+          })
+        }
+
+        return weeks
+      },
+      [],
+    )
+
+    return calendarWeeks
+  }, [currentDate])
 
   function handlePreviousMonth() {
     // decreases one month
@@ -86,104 +143,26 @@ export function Calendar() {
           </tr>
         </thead>
         <tbody className="before:block before:leading-4 before:text-zinc-50 before:content-['.']">
-          <tr>
-            <td className="box-border"></td>
-            <td className="box-border"></td>
-            <td className="box-border"></td>
-            <td className="box-border"></td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center hover:bg-zinc-200"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center hover:bg-zinc-200"
-              >
-                2
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center hover:bg-zinc-200"
-              >
-                3
-              </Button>
-            </td>
-          </tr>
-          <tr>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                1
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                2
-              </Button>
-            </td>
-            <td className="box-border">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="aspect-square h-auto w-full items-center"
-              >
-                3
-              </Button>
-            </td>
-          </tr>
+          {calendarWeeks.map(({ week, days }) => {
+            return (
+              <tr key={week}>
+                {days.map(({ date, disabled }) => {
+                  return (
+                    <td key={date.toString()} className="box-border">
+                      <Button
+                        disabled={disabled}
+                        variant="secondary"
+                        size="sm"
+                        className="aspect-square h-auto w-full items-center hover:bg-zinc-200"
+                      >
+                        {date.get('date')}
+                      </Button>
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
