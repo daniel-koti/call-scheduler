@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
   const isDateSelected = !!selectedDate
 
   return (
