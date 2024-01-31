@@ -1,12 +1,18 @@
 import { Calendar } from '@/components/calendar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import dayjs from 'dayjs'
 import { useState } from 'react'
 
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
   const isDateSelected = !!selectedDate
+
+  const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null
+  const describedDate = selectedDate
+    ? dayjs(selectedDate).format('DD[ de ]MMMM')
+    : null
 
   return (
     <Card
@@ -18,7 +24,7 @@ export function CalendarStep() {
       {isDateSelected && (
         <div className="absolute bottom-0 right-0 top-0 w-[280px] overflow-y-scroll border-l border-zinc-200 px-6 pb-0 pt-6">
           <header className="text-sm font-medium text-zinc-500">
-            terça-feira <span className=" text-zinc-900">20 de Janeiro</span>
+            {weekDay}, <span className=" text-zinc-900">{describedDate}</span>
           </header>
           <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-1">
             <Button>08:00h</Button>
