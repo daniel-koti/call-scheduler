@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { Calendar } from '@/components/calendar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+
 import dayjs from 'dayjs'
-import { useState } from 'react'
 
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
@@ -37,9 +38,7 @@ export function CalendarStep() {
             <Button>15:00h</Button>
             <Button>16:00h</Button>
             <Button>17:00h</Button>
-            <Button>18:00h</Button>
-            <Button>19:00h</Button>
-            <Button>20:00h</Button>
+            <Button className="mb-4">18:00h</Button>
           </div>
         </div>
       )}
