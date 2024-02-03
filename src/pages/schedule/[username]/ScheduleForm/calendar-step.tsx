@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 import dayjs from 'dayjs'
-import { useGetAvailabilities } from '@/hooks/availability/use-get-availabilities'
+import { useGetAvailabilities } from '@/hooks/use-get-availabilities'
 
 export interface Availability {
   possibleTimes: number[]

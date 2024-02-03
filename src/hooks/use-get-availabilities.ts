@@ -1,5 +1,5 @@
 import { Availability } from '@/pages/schedule/[username]/ScheduleForm/calendar-step'
-import { getAvailabilityTimes } from '@/services/availability/get-availability-times'
+import { getAvailabilityTimes } from '@/services/get-availability-times'
 import { useQuery } from '@tanstack/react-query'
 
 export function useGetAvailabilities(username: string, date: string | null) {

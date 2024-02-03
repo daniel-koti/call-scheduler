@@ -3,6 +3,8 @@ import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from './ui/button'
 import { getWeekDays } from '@/utils/get-week-days'
+import { useRouter } from 'next/router'
+import { useGetBlockedDays } from '@/hooks/use-get-blocked-days'
 
 interface CalendarWeek {
   week: number
@@ -24,10 +26,21 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
     return dayjs().set('date', 1)
   })
 
+  const router = useRouter()
+
   const shortWeekDays = getWeekDays({ short: true })
 
   const currentMonth = currentDate.format('MMMM')
   const currentYear = currentDate.format('YYYY')
+
+  const dateParams = {
+    year: currentDate.get('year').toString(),
+    month: currentDate.get('month').toString(),
+  }
+
+  const username = String(router.query.username)
+
+  const { data: blockedDates } = useGetBlockedDays(username, dateParams)
 
   const calendarWeeks = useMemo(() => {
     const daysInMonthArray = Array.from({
@@ -68,7 +81,9 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       ...daysInMonthArray.map((date) => {
         return {
           date,
-          disabled: date.endOf('day').isBefore(new Date()),
+          disabled:
+            date.endOf('day').isBefore(new Date()) ||
+            blockedDates?.blockedWeekDays.includes(date.get('day')),
         }
       }),
       ...nextMonthFillArray.map((date) => {
@@ -96,7 +111,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
     )
 
     return calendarWeeks
-  }, [currentDate])
+  }, [currentDate, blockedDates])
 
   function handlePreviousMonth() {
     // decreases one month
