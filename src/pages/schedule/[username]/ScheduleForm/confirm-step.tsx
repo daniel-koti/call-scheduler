@@ -2,10 +2,13 @@ import { FormError } from '@/components/form-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { api } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
 import { Calendar, Clock } from 'lucide-react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const confirmFormSchema = z.object({
@@ -35,8 +38,22 @@ export function ConfirmStep({
     resolver: zodResolver(confirmFormSchema),
   })
 
-  function handleConfirmScheduling(data: ConfirmFormData) {
-    console.log(data)
+  const router = useRouter()
+  const username = String(router.query.username)
+
+  async function handleConfirmScheduling(data: ConfirmFormData) {
+    const { name, email, comments } = data
+
+    await api.post(`/users/${username}/schedule`, {
+      name,
+      email,
+      comments,
+      date: schedulingDate,
+    })
+
+    toast.success('Agendamento criado com sucesso!')
+
+    onCancelConfirmation()
   }
 
   const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')

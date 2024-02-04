@@ -4,8 +4,8 @@ import { Calendar } from '@/components/calendar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-import dayjs from 'dayjs'
 import { useGetAvailabilities } from '@/hooks/use-get-availabilities'
+import dayjs from 'dayjs'
 
 export interface Availability {
   possibleTimes: number[]
