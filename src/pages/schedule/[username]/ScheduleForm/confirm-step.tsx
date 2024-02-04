@@ -77,7 +77,7 @@ export function ConfirmStep({
       <label className="flex flex-col gap-2">
         <span className="text-sm">Observações (opcional)</span>
         <Textarea
-          placeholder="Seu nome"
+          placeholder="Insira alguns comentários"
           className="resize-none"
           {...register('comments')}
         />
