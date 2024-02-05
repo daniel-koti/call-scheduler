@@ -44,16 +44,19 @@ export function ConfirmStep({
   async function handleConfirmScheduling(data: ConfirmFormData) {
     const { name, email, comments } = data
 
-    await api.post(`/users/${username}/schedule`, {
-      name,
-      email,
-      comments,
-      date: schedulingDate,
-    })
+    try {
+      await api.post(`/users/${username}/schedule`, {
+        name,
+        email,
+        comments,
+        date: schedulingDate,
+      })
 
-    toast.success('Agendamento criado com sucesso!')
-
-    onCancelConfirmation()
+      toast.success('Agendamento criado com sucesso!')
+      onCancelConfirmation()
+    } catch (error) {
+      toast.error('Não foi possível criar o agendamento!')
+    }
   }
 
   const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
@@ -61,7 +64,7 @@ export function ConfirmStep({
 
   return (
     <form
-      onClick={handleSubmit(handleConfirmScheduling)}
+      onSubmit={handleSubmit(handleConfirmScheduling)}
       className="border-200 mx-auto mt-4 flex max-w-[540px] flex-col gap-4 rounded-[6px] border bg-zinc-100 p-4"
     >
       <header className="mb-2 flex items-center gap-4 border-b border-zinc-300 pb-6">
