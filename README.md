@@ -11,13 +11,16 @@ Application that connects your Google calendar and allows people to book appoint
 - Next Auth
 - Zod
 - React Hook Form
+- React Query
 
 ## Important learnings
 - Social authentication (Google)
+- Google API Configuration
 
 ## Features
 - Create user
 - Connect google account
 - Google calendar permissions validation
+- Create events in google accounts
   
   
