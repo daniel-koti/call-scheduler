@@ -14,7 +14,7 @@ export async function getGoogleOAuthToken(userId: string) {
 
   const auth = new google.auth.OAuth2(
     env.GOOGLE_CLIENT_ID,
-    env.GOOGLE_CLIENT_ID,
+    env.GOOGLE_CLIENT_SECRET,
   )
 
   auth.setCredentials({
@@ -47,7 +47,7 @@ export async function getGoogleOAuthToken(userId: string) {
       },
       data: {
         access_token,
-        expires_at: expiry_date ? Math.floor(expiry_date / 100) : null,
+        expires_at: expiry_date ? Math.floor(expiry_date / 1000) : null,
         id_token,
         refresh_token,
         scope,
