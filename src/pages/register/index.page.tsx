@@ -6,6 +6,7 @@ import { api } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { ArrowRight } from 'lucide-react'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -62,50 +63,53 @@ export default function Register() {
   }
 
   return (
-    <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
-      <div className="py-0">
-        <strong className="text-2xl font-semibold">
-          Bem-vindo ao Call Scheduler
-        </strong>
-        <p className="mb-6 text-zinc-800">
-          Precisamos de algumas informações para criar o seu perfil! Ah, você
-          pode editar essas informações depois.
-        </p>
-      </div>
+    <>
+      <NextSeo title="Crie uma conta | Call Scheduler" />
+      <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
+        <div className="py-0">
+          <strong className="text-2xl font-semibold">
+            Bem-vindo ao Call Scheduler
+          </strong>
+          <p className="mb-6 text-zinc-800">
+            Precisamos de algumas informações para criar o seu perfil! Ah, você
+            pode editar essas informações depois.
+          </p>
+        </div>
 
-      <MultiStep currentStep={1} steps={4} />
+        <MultiStep currentStep={1} steps={4} />
 
-      <form
-        onSubmit={handleSubmit(handleRegister)}
-        className="mt-6 flex flex-col gap-4 rounded bg-zinc-100 p-6"
-      >
-        <label className="flex flex-col gap-2">
-          <span className="text-sm text-zinc-900">Nome de usuário</span>
-          <Input
-            prefix="ignite.com/"
-            placeholder="seu-usuario"
-            {...register('username')}
-          />
+        <form
+          onSubmit={handleSubmit(handleRegister)}
+          className="mt-6 flex flex-col gap-4 rounded bg-zinc-100 p-6"
+        >
+          <label className="flex flex-col gap-2">
+            <span className="text-sm text-zinc-900">Nome de usuário</span>
+            <Input
+              prefix="ignite.com/"
+              placeholder="seu-usuario"
+              {...register('username')}
+            />
 
-          {errors.username && (
-            <FormError description={errors.username.message as string} />
-          )}
-        </label>
+            {errors.username && (
+              <FormError description={errors.username.message as string} />
+            )}
+          </label>
 
-        <label className="flex flex-col gap-2">
-          <span className="text-sm text-zinc-900">Nome completo</span>
-          <Input placeholder="Seu nome" {...register('name')} />
+          <label className="flex flex-col gap-2">
+            <span className="text-sm text-zinc-900">Nome completo</span>
+            <Input placeholder="Seu nome" {...register('name')} />
 
-          {errors.name && (
-            <FormError description={errors.name.message as string} />
-          )}
-        </label>
+            {errors.name && (
+              <FormError description={errors.name.message as string} />
+            )}
+          </label>
 
-        <Button isLoading={isSubmitting} disabled={isSubmitting}>
-          Próximo passo{' '}
-          {!isSubmitting && <ArrowRight className="ml-1 h-4 w-4" />}
-        </Button>
-      </form>
-    </main>
+          <Button isLoading={isSubmitting} disabled={isSubmitting}>
+            Próximo passo{' '}
+            {!isSubmitting && <ArrowRight className="ml-1 h-4 w-4" />}
+          </Button>
+        </form>
+      </main>
+    </>
   )
 }

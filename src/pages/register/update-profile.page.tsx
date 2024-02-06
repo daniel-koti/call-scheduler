@@ -13,6 +13,7 @@ import { AvatarFallback } from '@radix-ui/react-avatar'
 import { getFirstAndLastLetterName } from '@/utils/get-first-and-last-letter-name'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 
 const updateProfileSchema = z.object({
   bio: z.string(),
@@ -41,47 +42,50 @@ export default function UpdateProfile() {
   }
 
   return (
-    <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
-      <div className="py-0">
-        <strong className="text-base">Defina sua disponibilidade</strong>
-        <p className="mb-6 text-zinc-800">
-          Por último, uma breve descrição e uma foto de perfil.
-        </p>
-      </div>
+    <>
+      <NextSeo title="Atualize o seu perfil | Call Scheduler" noindex />
+      <main className="mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
+        <div className="py-0">
+          <strong className="text-base">Defina sua disponibilidade</strong>
+          <p className="mb-6 text-zinc-800">
+            Por último, uma breve descrição e uma foto de perfil.
+          </p>
+        </div>
 
-      <MultiStep currentStep={4} steps={4} />
+        <MultiStep currentStep={4} steps={4} />
 
-      <form
-        onSubmit={handleSubmit(handleUpdateProfile)}
-        className="mt-6 flex flex-col gap-4 rounded-[6px] border border-zinc-200 bg-zinc-100 p-6"
-      >
-        <label className="flex flex-col gap-2">
-          <span>Foto de perfil</span>
-          <Avatar>
-            <AvatarImage src={session.data?.user.avatar_url} />
-            <AvatarFallback className="flex w-32 items-center justify-center bg-zinc-400">
-              {getFirstAndLastLetterName(session.data?.user?.name)}
-            </AvatarFallback>
-          </Avatar>
-        </label>
+        <form
+          onSubmit={handleSubmit(handleUpdateProfile)}
+          className="mt-6 flex flex-col gap-4 rounded-[6px] border border-zinc-200 bg-zinc-100 p-6"
+        >
+          <label className="flex flex-col gap-2">
+            <span>Foto de perfil</span>
+            <Avatar>
+              <AvatarImage src={session.data?.user.avatar_url} />
+              <AvatarFallback className="flex w-32 items-center justify-center bg-zinc-400">
+                {getFirstAndLastLetterName(session.data?.user?.name)}
+              </AvatarFallback>
+            </Avatar>
+          </label>
 
-        <label className="flex flex-col gap-2">
-          <span className="text-sm text-zinc-900">Sobre você</span>
-          <Textarea
-            className="resize-none"
-            placeholder="Seu nome"
-            {...register('bio')}
-          />
-          <span className="text-xs">
-            Fale um pouco sobre você. Isto será exibido em sua página pessoal.
-          </span>
-        </label>
+          <label className="flex flex-col gap-2">
+            <span className="text-sm text-zinc-900">Sobre você</span>
+            <Textarea
+              className="resize-none"
+              placeholder="Seu nome"
+              {...register('bio')}
+            />
+            <span className="text-xs">
+              Fale um pouco sobre você. Isto será exibido em sua página pessoal.
+            </span>
+          </label>
 
-        <Button isLoading={isSubmitting} disabled={isSubmitting}>
-          Finalizar{' '}
-        </Button>
-      </form>
-    </main>
+          <Button isLoading={isSubmitting} disabled={isSubmitting}>
+            Finalizar{' '}
+          </Button>
+        </form>
+      </main>
+    </>
   )
 }
 

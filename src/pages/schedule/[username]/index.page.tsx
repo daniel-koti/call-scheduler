@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { getFirstAndLastLetterName } from '@/utils/get-first-and-last-letter-name'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ScheduleForm } from './ScheduleForm'
+import { NextSeo } from 'next-seo'
 
 interface ScheduleProps {
   user: {
@@ -14,22 +15,25 @@ interface ScheduleProps {
 
 export default function Schedule({ user }: ScheduleProps) {
   return (
-    <section className="mx-auto mb-4 mt-20 max-w-[852px] px-4">
-      <header className="flex flex-col items-center">
-        <Avatar>
-          <AvatarImage src={user.avatarUrl} />
-          <AvatarFallback className="flex items-center justify-center bg-zinc-400">
-            {getFirstAndLastLetterName(user.name)}
-          </AvatarFallback>
-        </Avatar>
-        <strong className="text-2xl font-semibold text-zinc-900">
-          {user.name}
-        </strong>
-        <span className="text-sm text-zinc-500">{user.bio}</span>
-      </header>
+    <>
+      <NextSeo title={`Agendar com ${user.name} | Call Scheduler`} />
+      <section className="mx-auto mb-4 mt-20 max-w-[852px] px-4">
+        <header className="flex flex-col items-center">
+          <Avatar>
+            <AvatarImage src={user.avatarUrl} />
+            <AvatarFallback className="flex items-center justify-center bg-zinc-400">
+              {getFirstAndLastLetterName(user.name)}
+            </AvatarFallback>
+          </Avatar>
+          <strong className="text-2xl font-semibold text-zinc-900">
+            {user.name}
+          </strong>
+          <span className="text-sm text-zinc-500">{user.bio}</span>
+        </header>
 
-      <ScheduleForm />
-    </section>
+        <ScheduleForm />
+      </section>
+    </>
   )
 }
 
