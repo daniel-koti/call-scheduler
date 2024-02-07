@@ -60,6 +60,16 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        'appear-from-left': {
+          '0%': {
+            opacity: 0,
+            transform: 'translateX(-50px)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateX(0)',
+          },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -72,6 +82,7 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'appear-from-left': 'appear-from-left 1s',
       },
     },
   },
