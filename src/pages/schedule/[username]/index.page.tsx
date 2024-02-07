@@ -17,7 +17,7 @@ export default function Schedule({ user }: ScheduleProps) {
   return (
     <>
       <NextSeo title={`Agendar com ${user.name} | Call Scheduler`} />
-      <section className="mx-auto mb-4 mt-20 max-w-[852px] px-4">
+      <section className="animate-appear-from-left mx-auto mb-4 mt-20 max-w-[852px] px-4">
         <header className="flex flex-col items-center">
           <Avatar>
             <AvatarImage src={user.avatarUrl} />
