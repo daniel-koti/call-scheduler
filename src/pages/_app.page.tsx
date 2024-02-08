@@ -24,7 +24,7 @@ export default function App({
           }}
         />
         <Component {...pageProps} />
-        <Toaster closeButton theme="system" />
+        <Toaster closeButton theme="system" richColors />
       </SessionProvider>
     </QueryClientProvider>
   )

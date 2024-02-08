@@ -22,7 +22,7 @@ export default async function handler(
 
   if (userExists) {
     return res.status(400).json({
-      message: 'Já existem um usuário com este username',
+      message: 'Já existe um usuário com este username',
     })
   }
 
