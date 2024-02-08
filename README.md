@@ -2,6 +2,10 @@
 
 Application that connects your Google calendar and allows people to book appointments in their free time.
 
+<h1 align="center">
+  <img alt="Call Scheduler" src=".github/screen.png" />
+</h1>
+
 ## Tools
 - Next.js
 - Typescript
