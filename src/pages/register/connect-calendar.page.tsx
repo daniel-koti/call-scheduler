@@ -30,7 +30,7 @@ export default function ConnectCalendar() {
         title="Conecte a sua agenda do google | Call Scheduler"
         noindex
       />
-      <main className="animate-appear-from-top mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
+      <main className="mx-auto mb-4 mt-20 max-w-xl animate-appear-from-top px-4 py-0">
         <div className="py-0">
           <strong className="text-2xl font-semibold">
             Conecte a sua agenda!

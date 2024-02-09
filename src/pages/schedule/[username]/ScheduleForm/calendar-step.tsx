@@ -55,7 +55,7 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
       <Calendar selectedDate={selectedDate} onDateSelected={setSelectedDate} />
 
       {isDateSelected && (
-        <div className="animate-appear-from-left absolute bottom-0 right-0 top-0 w-[280px] overflow-y-scroll border-l border-zinc-200 px-6 pb-0 pt-6">
+        <div className="absolute bottom-0 right-0 top-0 w-[280px] animate-appear-from-left overflow-y-scroll border-l border-zinc-200 px-6 pb-0 pt-6">
           <header className="text-sm font-medium text-zinc-500">
             {weekDay}, <span className=" text-zinc-900">{describedDate}</span>
           </header>

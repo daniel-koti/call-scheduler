@@ -90,6 +90,7 @@ export default function TimeIntervals() {
 
   const weekDays = getWeekDays()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleSetTimeIntervals(data: any) {
     const { intervals } = data as TimeIntervalsFormOutput
 
@@ -106,7 +107,7 @@ export default function TimeIntervals() {
         title="Selecione a sua disponibilidade | Call Scheduler"
         noindex
       />
-      <main className="animate-appear-from-top mx-auto mb-4 mt-20 max-w-xl px-4 py-0">
+      <main className="mx-auto mb-4 mt-20 max-w-xl animate-appear-from-top px-4 py-0">
         <div className="py-0">
           <strong className="text-2xl font-semibold">Quase lá!</strong>
           <p className="mb-6 text-zinc-800">

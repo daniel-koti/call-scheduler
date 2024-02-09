@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '@/lib/prisma'
 
-import dayjs from 'dayjs'
-
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse,
